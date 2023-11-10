@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+
+require_relative '../config/app'
+require 'pry'
+
+Signal.trap("INT") do
+  # handle the signal
+  puts "\n\nShutdown the app..."
+  exit(0)
+end
+
+def relations
+  AppContainer['persistance.container'].relations
+end
+
+games = relations.games
+moves = relations.moves
+players = relations.players
+
+john = players.command(:create).call({ id: SecureRandom.uuid, name: 'John' })
+martin = players.command(:create).call({ id: SecureRandom.uuid, name: 'Martin' })
+
+current_game = games.command(:create).call({
+  id: SecureRandom.uuid,
+  player_x_id: john[:id],
+  player_o_id: martin[:id],
+  winner: nil,
+  status: 'ongoing'
+})
+
+moves.command(:create).call({ game_id: current_game[:id], x_pos: 1, y_pos: 1, movement_index: 0 })
+moves.command(:create).call({ game_id: current_game[:id], x_pos: 1, y_pos: 0, movement_index: 1 })
+moves.command(:create).call({ game_id: current_game[:id], x_pos: 2, y_pos: 2, movement_index: 2 })
+
+ui = UI::Console::Main.new
+ui.run

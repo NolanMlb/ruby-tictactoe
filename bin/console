@@ -1,0 +1,108 @@
+#!/usr/bin/env ruby
+
+require_relative '../config/app'
+require 'pry'
+
+def start_program
+  ui = UI::Console::Main.new
+  ui.run
+end
+
+def start_play
+  game = TicTacToe::Game.new
+  ui = UI::Console::Game.new(game)
+  ui.play
+end
+
+def test_game
+  games = relations.games
+  moves = relations.moves
+  players = relations.players
+
+  john = players.command(:create).call({ id: SecureRandom.uuid, name: 'John' })
+  martin = players.command(:create).call({ id: SecureRandom.uuid, name: 'Martin' })
+
+  current_game = games.command(:create).call({
+    id: SecureRandom.uuid,
+    player_x_id: john[:id],
+    player_o_id: martin[:id]
+  })
+
+  moves.command(:create).call({ game_id: current_game[:id], x_pos: 1, y_pos: 1, movement_index: 0 })
+  moves.command(:create).call({ game_id: current_game[:id], x_pos: 1, y_pos: 0, movement_index: 1 })
+  moves.command(:create).call({ game_id: current_game[:id], x_pos: 2, y_pos: 2, movement_index: 2 })
+
+  game = TicTacToe::GameInMemoryRepository.new.find(current_game[:id])
+
+  binding.pry
+end
+
+def test_leaderboard
+  games = relations.games
+  moves = relations.moves
+  players = relations.players
+
+  john = players.command(:create).call({ id: SecureRandom.uuid, name: 'John' })
+  martin = players.command(:create).call({ id: SecureRandom.uuid, name: 'Martin' })
+  jullie = players.command(:create).call({ id: SecureRandom.uuid, name: 'Jullie' })
+
+  games.command(:create).call({
+    id: SecureRandom.uuid,
+    player_x_id: john[:id],
+    player_o_id: martin[:id],
+    winner: john[:id],
+    status: 'finished'
+  })
+
+  games.command(:create).call({
+    id: SecureRandom.uuid,
+    player_x_id: john[:id],
+    player_o_id: martin[:id],
+    winner: martin[:id],
+    status: 'finished'
+  })
+
+  games.command(:create).call({
+    id: SecureRandom.uuid,
+    player_x_id: john[:id],
+    player_o_id: jullie[:id],
+    winner: john[:id],
+    status: 'finished'
+  })
+
+  games.command(:create).call({
+    id: SecureRandom.uuid,
+    player_x_id: jullie[:id],
+    player_o_id: martin[:id],
+    winner: jullie[:id],
+    status: 'finished'
+  })
+
+  games.command(:create).call({
+    id: SecureRandom.uuid,
+    player_x_id: jullie[:id],
+    player_o_id: martin[:id],
+    winner: nil,
+    status: 'finished'
+  })
+
+  repo = TicTacToe::LeaderboardInMemoryRepository.new
+
+  leaderboard = repo.score
+
+  ui = UI::Console::Leaderboard.new(leaderboard)
+  ui.run
+
+  binding.pry
+end
+
+
+def relations
+  AppContainer['persistance.container'].relations
+end
+
+
+test_leaderboard
+
+Pry.start
+
