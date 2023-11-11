@@ -1,8 +1,8 @@
 module UI
   module Console
     class CreateGame
-      include AppContainer::Deps[player_repository: 'tictactoe.player_in_memory_repository']
-      include AppContainer::Deps[game_repository: 'tictactoe.game_in_memory_repository']
+      include AppContainer::Deps[player_repository: 'tictactoe.player_in_sql_repository']
+      include AppContainer::Deps[game_repository: 'tictactoe.game_in_sql_repository']
 
       def run
         player_x = player_setup("X")

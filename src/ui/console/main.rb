@@ -1,7 +1,7 @@
 module UI
   module Console
     class Main
-      include AppContainer::Deps[leaderboard_repository: 'tictactoe.leaderboard_in_memory_repository']
+      include AppContainer::Deps[leaderboard_repository: 'tictactoe.leaderboard_in_sql_repository']
 
       def run
         @running = true

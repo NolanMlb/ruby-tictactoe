@@ -1,7 +1,7 @@
 module UI
   module Console
     class FindOngoingGame
-      include AppContainer::Deps[game_repository: 'tictactoe.game_in_memory_repository']
+      include AppContainer::Deps[game_repository: 'tictactoe.game_in_sql_repository']
 
       def run
         ongoing_games = game_repository.ongoing

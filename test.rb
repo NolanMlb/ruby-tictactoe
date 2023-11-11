@@ -28,7 +28,7 @@ begin
                     FOREIGN KEY (game_id) REFERENCES games(id)
                 );")
   result = connection.exec("SELECT * FROM games;")
-  print(result)
+  print('ok', result)
 
   # Traiter les résultats
   result.each do |row|
