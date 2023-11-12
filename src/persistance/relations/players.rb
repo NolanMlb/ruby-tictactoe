@@ -1,7 +1,7 @@
 module Persistance
   module Relations
-    class Players < ROM::Relation[:memory]
-      gateway :memory
+    class Players < ROM::Relation[:sql]
+      gateway :sql
 
       schema(:players) do
         attribute :id, Types::String
@@ -11,15 +11,15 @@ module Persistance
       end
 
       def for_ids(ids)
-        restrict(id: ids)
+        where(id: ids)
       end
 
       def for_game_x(_assoc, games)
-        restrict(id: games.map { |game| game[:player_x_id] })
+        where(id: games.map { |game| game[:player_x_id] })
       end
 
       def for_game_o(_assoc, games)
-        restrict(id: games.map { |game| game[:player_o_id] })
+        where(id: games.map { |game| game[:player_o_id] })
       end
     end
   end

@@ -1,21 +1,23 @@
-# Utilisez une image officielle de Ruby
+# Use the official Ruby image
 FROM ruby:3.1
 
-# Installez les dépendances nécessaires (si vous en avez)
+# Install necessary dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
-    nodejs 
+    nodejs
 
-# Créez et définissez le répertoire de travail
+# Set the working directory
 WORKDIR /usr/src/app
 
-# Copiez le Gemfile et le Gemfile.lock pour installer les dépendances
+# Copy Gemfile and Gemfile.lock to install dependencies
 COPY Gemfile Gemfile.lock ./
+
+# Install dependencies
 RUN bundle install
 
-# Copiez le reste de l'application
+# Copy the rest of the application
 COPY . .
 
-# Commande pour exécuter le programme
+# Command to run the program
 CMD ["./bin/start"]

@@ -4,12 +4,6 @@ require 'pg'
 
 module DatabaseConnection
   def self.get_connection
-    @db_connection ||= PG.connect(
-      dbname: 'tictactoe', 
-      user: 'postgres', 
-      password: 'postgres', 
-      host: 'localhost', 
-      port: 5432
-    )
+    @db_connection ||= Sequel.connect(ENV['DATABASE_URL'])
   end
 end

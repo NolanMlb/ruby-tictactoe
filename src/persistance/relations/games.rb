@@ -1,7 +1,7 @@
 module Persistance
   module Relations
-    class Games < ROM::Relation[:memory]
-      gateway :memory
+    class Games < ROM::Relation[:sql]
+      # gateway :memory
 
       schema(:games) do
         attribute :id, Types::String

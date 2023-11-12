@@ -8,7 +8,7 @@ AppContainer.register_provider(:persistance) do
 
   start do
     configuration = ROM::Configuration.new({
-      memory: :memory,
+      :sql => [:sql, ENV['DATABASE_URL']],
       default: [:sql, ENV['DATABASE_URL']]
     })
     configuration.auto_registration(

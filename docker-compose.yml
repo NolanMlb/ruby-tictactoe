@@ -6,8 +6,8 @@ services:
     volumes:
       - .:/usr/tictactoe
     environment:
-      - RUBY_ENV=development
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/tictactoe
+
     stdin_open: true
     tty: true
     depends_on:
@@ -20,7 +20,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=tictactoe
     ports:
-      - '5432:5432'
+      - '5434:5432'
     volumes:
       - db:/var/lib/postgresql/data
       - ./database-scripts:/database-scripts

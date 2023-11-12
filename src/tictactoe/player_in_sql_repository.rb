@@ -3,13 +3,13 @@ require 'securerandom'
 require_relative '../../config/database_connection.rb'
 
 module TicTacToe
-  class PlayerPostgreSQLRepository
+  class PlayerInSqlRepository
     def initialize
         @db_connection = DatabaseConnection.get_connection
     end
 
     def all
-      result = @db_connection.exec('SELECT * FROM players')
+      result = @db_connection.run('SELECT * FROM players')
       result.map do |row|
         # Assuming row contains columns like 'id', 'name'
         { id: row['id'], name: row['name'] }
@@ -18,8 +18,10 @@ module TicTacToe
 
     def create(name)
       id = SecureRandom.uuid
-      @db_connection.exec_params('INSERT INTO players (id, name) VALUES ($1, $2)', [id, name])
+      print id
+      @db_connection[:players].insert(id: id, name: name)
       { id: id, name: name }
-    end
+      print 'ok'
+    end 
   end
 end

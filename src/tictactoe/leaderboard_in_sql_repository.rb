@@ -1,5 +1,7 @@
+require_relative '../../config/database_connection'
+
 module TicTacToe
-    class LeaderboardPostgreSQLRepository
+    class LeaderboardInSqlRepository
       def initialize
         @db_connection = DatabaseConnection.get_connection
       end
