@@ -13,3 +13,7 @@ gem 'dry-struct'
 gem 'pg'
 
 gem 'rake'
+
+gem 'sinatra'
+
+gem 'sinatra-cross_origin'
