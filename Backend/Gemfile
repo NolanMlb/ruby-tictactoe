@@ -15,5 +15,10 @@ gem 'pg'
 gem 'rake'
 
 gem 'sinatra'
-
 gem 'sinatra-cross_origin'
+
+gem 'activerecord'
+
+gem 'yaml'
+
+gem 'rails'

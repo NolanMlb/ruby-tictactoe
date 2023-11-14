@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" type="text/css" href="/style/style.css">
+    <script src="/js/index.js" defer></script>
+    <title>Jeu du Morpion</title>
+  </head>
+  <body>
+  <div id="gameEnd">
+      <p class="white" id="endGameStatus">...</p>
+      <input
+        type="submit"
+        value="Recommencer"
+        id="reloadGame"
+        onclick="reloadGame()"
+      />
+    </div>
+
+    <h1 id="gameStatus"></h1>
+
+    <div class="board">
+      <div class="cell" data-cell></div>
+      <div class="cell" data-cell></div>
+      <div class="cell" data-cell></div>
+      <div class="cell" data-cell></div>
+      <div class="cell" data-cell></div>
+      <div class="cell" data-cell></div>
+      <div class="cell" data-cell></div>
+      <div class="cell" data-cell></div>
+      <div class="cell" data-cell></div>
+    </div>
+    <button onclick="envoyerDonnee()">Envoyer</button>
+  </body>
+</html>
