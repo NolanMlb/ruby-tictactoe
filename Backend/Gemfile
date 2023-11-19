@@ -17,6 +17,7 @@ gem 'rake'
 gem 'sinatra'
 gem 'sinatra-cross_origin'
 
+gem 'sinatra-activerecord'
 gem 'activerecord'
 
 gem 'yaml'

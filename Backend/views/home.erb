@@ -3,34 +3,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link rel="stylesheet" type="text/css" href="/style/style.css">
+    <link rel="stylesheet" type="text/css" href="/style/style.css">
     <script src="/js/index.js" defer></script>
     <title>Jeu du Morpion</title>
   </head>
   <body>
-  <div id="gameEnd">
-      <p class="white" id="endGameStatus">...</p>
-      <input
-        type="submit"
-        value="Recommencer"
-        id="reloadGame"
-        onclick="reloadGame()"
-      />
+    <div style="text-align:center;">
+      <h1> TICTACTOE </h1>
     </div>
 
-    <h1 id="gameStatus"></h1>
+    <label for="gameSelect">Sélectionnez un jeu :</label>
+    <select id="gameSelect" name="game">
+      <% @games.each do |game| %>
+        <% player_x = @players.find { |p| p.id == game.player_x_id } %>
+        <% player_o = @players.find { |p| p.id == game.player_o_id } %>
+        <option value="<%= game.id %>">
+          <%= player_x.name %> VS <%= player_o.name %>
+        </option>
+      <% end %>
+    </select>
+    <button onclick="continuerPartie()">Continuer la partie</button>
 
-    <div class="board">
-      <div class="cell" data-cell></div>
-      <div class="cell" data-cell></div>
-      <div class="cell" data-cell></div>
-      <div class="cell" data-cell></div>
-      <div class="cell" data-cell></div>
-      <div class="cell" data-cell></div>
-      <div class="cell" data-cell></div>
-      <div class="cell" data-cell></div>
-      <div class="cell" data-cell></div>
+
+    <br />
+    <br />
+    <label for="player1Select">Sélectionnez le joueur 1 :</label>
+    <select id="player1Select" name="player1">
+      <% @players.each do |player| %>
+        <option value="<%= player.id %>"><%= player.name %></option>
+      <% end %>
+    </select>
+
+    <label for="player2Select">Sélectionnez le joueur 2 :</label>
+    <select id="player2Select" name="player2">
+      <% @players.each do |player| %>
+        <option value="<%= player.id %>"><%= player.name %></option>
+      <% end %>
+    </select>
+    <button onclick="creerPartie()">Créer une nouvelle partie</button>
+
+    <br />
+    <br />
+    <div>
+      <label for="playerName">Nom du joueur :</label>
+      <input type="text" id="playerName" name="playerName" placeholder="Entrez un nom de joueur">
+      <button onclick="creerJoueur()">Créer un joueur</button>
     </div>
-    <button onclick="envoyerDonnee()">Envoyer</button>
   </body>
 </html>

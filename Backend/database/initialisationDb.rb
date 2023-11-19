@@ -1,4 +1,3 @@
-require 'pg'
 # initialisationDb.rb
 
 require_relative './config/connectDb'
@@ -13,7 +12,7 @@ def create_players_table(conn)
   conn.exec(
     <<~SQL
       CREATE TABLE IF NOT EXISTS players (
-        id VARCHAR PRIMARY KEY,
+        id SERIAL PRIMARY KEY,
         name VARCHAR NOT NULL
       );
     SQL
@@ -24,9 +23,9 @@ def create_games_table(conn)
   conn.exec(
     <<~SQL
       CREATE TABLE IF NOT EXISTS games (
-        id VARCHAR PRIMARY KEY,
-        player_x_id VARCHAR NOT NULL,
-        player_o_id VARCHAR NOT NULL,
+        id SERIAL PRIMARY KEY,
+        player_x_id SERIAL NOT NULL,
+        player_o_id SERIAL NOT NULL,
         winner VARCHAR NULL,
         status VARCHAR NOT NULL CHECK (status IN ('ongoing', 'finished')),
 
@@ -41,7 +40,7 @@ def create_moves_table(conn)
   conn.exec(
     <<~SQL
       CREATE TABLE IF NOT EXISTS moves (
-        game_id VARCHAR NOT NULL,
+        game_id SERIAL NOT NULL,
         x_pos INT NOT NULL,
         y_pos INT NOT NULL,
 

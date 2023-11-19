@@ -7,7 +7,8 @@ class DatabaseConnector
     conn = nil
 
     begin
-      config = YAML.load_file('./config/database.yml')
+      config_path = File.join(__dir__, 'database.yml')
+      config = YAML.load_file(config_path)
 
       conn = PG.connect(
         dbname: config['development']['dbname'],

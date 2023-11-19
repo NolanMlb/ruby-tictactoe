@@ -1,6 +1,6 @@
 development:
   dbname: "TicTacToe"
   user: "postgres"
-  password: "postgres"
+  password: "admin" #postgres or admin
   host: "localhost"
   port: 5432

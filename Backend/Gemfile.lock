@@ -199,6 +199,9 @@ GEM
       rack (~> 2.2, >= 2.2.4)
       rack-protection (= 3.1.0)
       tilt (~> 2.0)
+    sinatra-activerecord (2.0.27)
+      activerecord (>= 4.1)
+      sinatra (>= 1.0)
     sinatra-cross_origin (0.4.0)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
@@ -235,6 +238,7 @@ DEPENDENCIES
   rom
   rom-sql
   sinatra
+  sinatra-activerecord
   sinatra-cross_origin
   yaml
   zeitwerk
